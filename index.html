@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hasna SEO Generator</title>
+    <style>
+        body { 
+            background: #000; 
+            color: #fff; 
+            font-family: Arial;
+            padding: 20px;
+        }
+        .box {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: none;
+        }
+        button {
+            background: red;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        pre {
+            background: #222;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Hasna SEO Generator</h2>
+
+    <input id="topic" type="text" placeholder="Enter your video topic...">
+
+    <button onclick="generateSEO()">Generate SEO</button>
+
+    <h3>Output:</h3>
+    <pre id="output">Waiting...</pre>
+</div>
+
+<script>
+const apiBase = "https://hasna-seo-backend.onrender.com";  // <--- HERE
+
+async function generateSEO() {
+    const topic = document.getElementById("topic").value;
+
+    const res = await fetch(`${apiBase}/api/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("output").textContent =
+        JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
